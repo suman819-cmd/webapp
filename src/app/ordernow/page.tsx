@@ -2572,7 +2572,7 @@ export default function OrderNow() {
                 </svg>
               </div>
               <p className="text-sm text-blue-700">
-                You will be redirected to your selected bank's mobile banking app to complete your payment securely.
+                You will be redirected to your selected bank&apos;s mobile banking app to complete your payment securely.
               </p>
             </div>
             
@@ -2691,7 +2691,7 @@ export default function OrderNow() {
                     onClick={handlePaymentSubmit}
                     className="flex-1 bg-orange-600 text-white py-3 rounded-lg hover:bg-orange-700 transition-colors flex items-center justify-center"
                   >
-                    I've Completed Payment
+                    I&apos;ve Completed Payment
                   </button>
                 </div>
               </>
@@ -2974,7 +2974,7 @@ export default function OrderNow() {
             </div>
             <div>
               <h3 className="font-medium text-green-700">Processing</h3>
-              <p className="text-gray-600 text-sm">We're preparing your order</p>
+              <p className="text-gray-600 text-sm">We&apos;re preparing your order</p>
             </div>
           </div>
 
@@ -3064,7 +3064,7 @@ export default function OrderNow() {
                 Payment Failed
               </h1>
               <p className="text-gray-600 mb-4">
-                We couldn't process your payment. {paymentError}
+                We couldn&apos;t process your payment. {paymentError}
               </p>
             </div>
 

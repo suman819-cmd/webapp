@@ -35,7 +35,7 @@ export default function Story() {
           <p className="text-brown-700 mb-6 leading-relaxed">
             Founded by tea enthusiasts who fell in love with coffee culture, our café celebrates the rich 
             heritage of Nepali chiya while embracing the artistry of modern coffee making. We believe that 
-            every cup should tell a story - whether it's the comforting warmth of masala chiya or the bold 
+            every cup should tell a story - whether it&apos;s the comforting warmth of masala chiya or the bold 
             complexity of a perfectly extracted espresso.
           </p>
           <p className="text-brown-700 leading-relaxed">
@@ -102,7 +102,7 @@ export default function Story() {
           <Users className="mx-auto h-8 w-8 text-brown-700 mb-4" />
           <h4 className="text-xl font-semibold mb-2">Community Hub</h4>
           <p className="text-brown-600 text-sm">
-            More than a café - we're a place where culture, tradition, and 
+            More than a café - we&apos;re a place where culture, tradition, and 
             modern lifestyle beautifully blend.
           </p>
         </Card>

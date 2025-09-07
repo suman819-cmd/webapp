@@ -16,7 +16,7 @@ const ServicesPage = () => {
         </div>
 
         <p className="text-lg text-amber-800 mb-12 text-center max-w-2xl mx-auto">
-          From cozy dine-in experiences to convenient delivery, we're here to
+          From cozy dine-in experiences to convenient delivery, we&apos;re here to
           serve you the perfect cup however and wherever you prefer.
         </p>
 
