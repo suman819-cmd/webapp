@@ -1050,6 +1050,473 @@
 
 
 
+//bar chart code 
+
+// "use client";
+
+// import { useState, useEffect } from "react";
+// import {
+//   Plus,
+//   Edit,
+//   Trash2,
+//   LogOut,
+//   Package,
+//   Users,
+//   TrendingUp,
+//   Clock,
+//   CheckCircle,
+//   AlertCircle,
+// } from "lucide-react";
+// import {
+//   BarChart,
+//   Bar,
+//   Line,
+//   XAxis,
+//   YAxis,
+//   CartesianGrid,
+//   Tooltip,
+//   Legend,
+//   ResponsiveContainer,
+// } from "recharts";
+
+// // Types
+// interface Order {
+//   id: string;
+//   customer: string;
+//   items: string[];
+//   total: number;
+//   status: "pending" | "completed" | "cancelled";
+//   date: string;
+// }
+
+// interface MenuItem {
+//   id: string;
+//   name: string;
+//   price: number;
+//   category: string;
+//   available: boolean;
+// }
+
+// interface SalesData {
+//   date: string;
+//   revenue: number;
+//   orders: number;
+// }
+
+// // Dashboard Component
+// export default function OwnerDashboard() {
+//   const [activeTab, setActiveTab] = useState<"overview" | "orders" | "menu" | "customers">(
+//     "overview"
+//   );
+//   const [orders, setOrders] = useState<Order[]>([]);
+//   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+//   const [salesData, setSalesData] = useState<SalesData[]>([]);
+//   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+//   const [selectedMenuItem, setSelectedMenuItem] = useState<MenuItem | null>(null);
+//   const [isAddingMenuItem, setIsAddingMenuItem] = useState(false);
+
+//   // Dummy Data
+//   useEffect(() => {
+//     setOrders([
+//       { id: "1", customer: "John Doe", items: ["Pizza", "Coke"], total: 25, status: "pending", date: "2025-09-05" },
+//       { id: "2", customer: "Jane Smith", items: ["Burger", "Fries"], total: 18, status: "completed", date: "2025-09-06" },
+//       { id: "3", customer: "Mark Lee", items: ["Pasta"], total: 15, status: "pending", date: "2025-09-07" },
+//     ]);
+
+//     setMenuItems([
+//       { id: "1", name: "Pizza", price: 12, category: "Main", available: true },
+//       { id: "2", name: "Burger", price: 10, category: "Main", available: true },
+//       { id: "3", name: "Fries", price: 6, category: "Sides", available: false },
+//     ]);
+
+//     setSalesData([
+//       { date: "Mon", revenue: 1200, orders: 30 },
+//       { date: "Tue", revenue: 1500, orders: 45 },
+//       { date: "Wed", revenue: 1800, orders: 40 },
+//       { date: "Thu", revenue: 1600, orders: 35 },
+//       { date: "Fri", revenue: 2000, orders: 50 },
+//       { date: "Sat", revenue: 2200, orders: 55 },
+//       { date: "Sun", revenue: 2500, orders: 60 },
+//     ]);
+//   }, []);
+
+//   // Metrics
+//   const totalRevenue = orders.reduce((sum, order) => sum + order.total, 0);
+//   const totalOrders = orders.length;
+//   const pendingOrders = orders.filter((o) => o.status === "pending").length;
+//   const completedOrders = orders.filter((o) => o.status === "completed").length;
+
+//   return (
+//     <div className="p-6 bg-gray-50 min-h-screen">
+//       {/* Header */}
+//       <div className="flex justify-between items-center mb-6">
+//         <h1 className="text-2xl font-bold">Owner Dashboard</h1>
+//         <button className="flex items-center px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+//           <LogOut className="w-4 h-4 mr-2" />
+//           Logout
+//         </button>
+//       </div>
+
+//       {/* Tabs */}
+//       <div className="flex space-x-4 mb-6">
+//         {[
+//           { key: "overview", label: "Overview", icon: TrendingUp },
+//           { key: "orders", label: "Orders", icon: Package },
+//           { key: "menu", label: "Menu Management", icon: Edit },
+//           { key: "customers", label: "Customers", icon: Users },
+//         ].map(({ key, label, icon: Icon }) => (
+//           <button
+//             key={key}
+//             onClick={() => setActiveTab(key as any)}
+//             className={`flex items-center px-4 py-2 rounded-lg ${
+//               activeTab === key
+//                 ? "bg-blue-500 text-white"
+//                 : "bg-white text-gray-700 hover:bg-gray-100"
+//             }`}
+//           >
+//             <Icon className="w-4 h-4 mr-2" />
+//             {label}
+//           </button>
+//         ))}
+//       </div>
+
+//       {/* Overview */}
+//       {activeTab === "overview" && (
+//         <div>
+//           {/* Stats */}
+//           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+//             <StatCard title="Total Revenue" value={`$${totalRevenue}`} icon={TrendingUp} color="text-green-500" />
+//             <StatCard title="Total Orders" value={totalOrders} icon={Package} color="text-blue-500" />
+//             <StatCard title="Pending Orders" value={pendingOrders} icon={Clock} color="text-yellow-500" />
+//             <StatCard title="Completed Orders" value={completedOrders} icon={CheckCircle} color="text-green-500" />
+//           </div>
+
+//           {/* Revenue Chart */}
+//           <div className="bg-white rounded-lg shadow p-6">
+//             <h2 className="text-xl font-semibold mb-4">Revenue Overview</h2>
+//             <div className="h-96">
+//               <ResponsiveContainer width="100%" height="100%">
+//                 <BarChart data={salesData} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
+//                   <CartesianGrid strokeDasharray="3 3" />
+//                   <XAxis dataKey="date" />
+//                   <YAxis />
+//                   <Tooltip formatter={(value: number) => `$${value}`} />
+//                   <Legend />
+//                   <Bar dataKey="revenue" fill="#3B82F6" radius={[6, 6, 0, 0]} />
+//                   <Line
+//                     type="monotone"
+//                     dataKey="orders"
+//                     stroke="#F59E0B"
+//                     strokeWidth={3}
+//                     dot={{ r: 6, fill: "#F59E0B" }}
+//                   />
+//                 </BarChart>
+//               </ResponsiveContainer>
+//             </div>
+//           </div>
+//         </div>
+//       )}
+
+//       {/* Orders */}
+//       {activeTab === "orders" && (
+//         <div className="bg-white rounded-lg shadow p-6">
+//           <h2 className="text-xl font-semibold mb-4">Orders</h2>
+//           <table className="w-full border-collapse">
+//             <thead>
+//               <tr className="bg-gray-100">
+//                 <th className="p-2 border">ID</th>
+//                 <th className="p-2 border">Customer</th>
+//                 <th className="p-2 border">Items</th>
+//                 <th className="p-2 border">Total</th>
+//                 <th className="p-2 border">Status</th>
+//                 <th className="p-2 border">Actions</th>
+//               </tr>
+//             </thead>
+//             <tbody>
+//               {orders.map((order) => (
+//                 <tr key={order.id} className="text-center">
+//                   <td className="p-2 border">{order.id}</td>
+//                   <td className="p-2 border">{order.customer}</td>
+//                   <td className="p-2 border">{order.items.join(", ")}</td>
+//                   <td className="p-2 border">${order.total}</td>
+//                   <td className="p-2 border">
+//                     <span
+//                       className={`px-2 py-1 rounded-full text-xs ${
+//                         order.status === "pending"
+//                           ? "bg-yellow-100 text-yellow-600"
+//                           : order.status === "completed"
+//                           ? "bg-green-100 text-green-600"
+//                           : "bg-red-100 text-red-600"
+//                       }`}
+//                     >
+//                       {order.status}
+//                     </span>
+//                   </td>
+//                   <td className="p-2 border">
+//                     <button
+//                       onClick={() => setSelectedOrder(order)}
+//                       className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+//                     >
+//                       View
+//                     </button>
+//                   </td>
+//                 </tr>
+//               ))}
+//             </tbody>
+//           </table>
+
+//           {/* Order Detail Modal */}
+//           {selectedOrder && (
+//             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+//               <div className="bg-white rounded-lg shadow-lg p-6 w-96">
+//                 <h3 className="text-lg font-semibold mb-2">Order Details</h3>
+//                 <p><strong>ID:</strong> {selectedOrder.id}</p>
+//                 <p><strong>Customer:</strong> {selectedOrder.customer}</p>
+//                 <p><strong>Date:</strong> {selectedOrder.date}</p>
+//                 <p><strong>Items:</strong> {selectedOrder.items.join(", ")}</p>
+//                 <p><strong>Total:</strong> ${selectedOrder.total}</p>
+//                 <p><strong>Status:</strong> {selectedOrder.status}</p>
+
+//                 <div className="flex justify-end mt-4 space-x-2">
+//                   <button
+//                     onClick={() => setSelectedOrder(null)}
+//                     className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+//                   >
+//                     Close
+//                   </button>
+//                   {selectedOrder.status === "pending" && (
+//                     <button
+//                       onClick={() => {
+//                         setOrders((prev) =>
+//                           prev.map((o) =>
+//                             o.id === selectedOrder.id ? { ...o, status: "completed" } : o
+//                           )
+//                         );
+//                         setSelectedOrder(null);
+//                       }}
+//                       className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+//                     >
+//                       Mark Completed
+//                     </button>
+//                   )}
+//                 </div>
+//               </div>
+//             </div>
+//           )}
+//         </div>
+//       )}
+
+//       {/* Menu Management */}
+//       {activeTab === "menu" && (
+//         <div className="bg-white rounded-lg shadow p-6">
+//           <div className="flex justify-between items-center mb-4">
+//             <h2 className="text-xl font-semibold">Menu Management</h2>
+//             <button
+//               onClick={() => setIsAddingMenuItem(true)}
+//               className="flex items-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+//             >
+//               <Plus className="w-4 h-4 mr-2" />
+//               Add Item
+//             </button>
+//           </div>
+//           <table className="w-full border-collapse">
+//             <thead>
+//               <tr className="bg-gray-100">
+//                 <th className="p-2 border">Name</th>
+//                 <th className="p-2 border">Price</th>
+//                 <th className="p-2 border">Category</th>
+//                 <th className="p-2 border">Available</th>
+//                 <th className="p-2 border">Actions</th>
+//               </tr>
+//             </thead>
+//             <tbody>
+//               {menuItems.map((item) => (
+//                 <tr key={item.id} className="text-center">
+//                   <td className="p-2 border">{item.name}</td>
+//                   <td className="p-2 border">${item.price}</td>
+//                   <td className="p-2 border">{item.category}</td>
+//                   <td className="p-2 border">
+//                     {item.available ? (
+//                       <span className="text-green-600">Yes</span>
+//                     ) : (
+//                       <span className="text-red-600">No</span>
+//                     )}
+//                   </td>
+//                   <td className="p-2 border space-x-2">
+//                     <button
+//                       onClick={() => setSelectedMenuItem(item)}
+//                       className="px-2 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+//                     >
+//                       Edit
+//                     </button>
+//                     <button
+//                       onClick={() => setMenuItems((prev) => prev.filter((m) => m.id !== item.id))}
+//                       className="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+//                     >
+//                       Delete
+//                     </button>
+//                   </td>
+//                 </tr>
+//               ))}
+//             </tbody>
+//           </table>
+
+//           {/* Add/Edit Menu Item Modal */}
+//           {(isAddingMenuItem || selectedMenuItem) && (
+//             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+//               <div className="bg-white rounded-lg shadow-lg p-6 w-96">
+//                 <h3 className="text-lg font-semibold mb-4">
+//                   {selectedMenuItem ? "Edit Menu Item" : "Add Menu Item"}
+//                 </h3>
+//                 <form
+//                   onSubmit={(e) => {
+//                     e.preventDefault();
+//                     const form = e.target as HTMLFormElement;
+//                     const formData = new FormData(form);
+//                     const newItem: MenuItem = {
+//                       id: selectedMenuItem ? selectedMenuItem.id : Date.now().toString(),
+//                       name: formData.get("name") as string,
+//                       price: Number(formData.get("price")),
+//                       category: formData.get("category") as string,
+//                       available: formData.get("available") === "on",
+//                     };
+//                     if (selectedMenuItem) {
+//                       setMenuItems((prev) =>
+//                         prev.map((m) => (m.id === selectedMenuItem.id ? newItem : m))
+//                       );
+//                     } else {
+//                       setMenuItems((prev) => [...prev, newItem]);
+//                     }
+//                     setSelectedMenuItem(null);
+//                     setIsAddingMenuItem(false);
+//                   }}
+//                   className="space-y-4"
+//                 >
+//                   <div>
+//                     <label className="block text-sm font-medium">Name</label>
+//                     <input
+//                       name="name"
+//                       defaultValue={selectedMenuItem?.name || ""}
+//                       className="w-full border rounded px-3 py-2"
+//                       required
+//                     />
+//                   </div>
+//                   <div>
+//                     <label className="block text-sm font-medium">Price</label>
+//                     <input
+//                       type="number"
+//                       name="price"
+//                       defaultValue={selectedMenuItem?.price || ""}
+//                       className="w-full border rounded px-3 py-2"
+//                       required
+//                     />
+//                   </div>
+//                   <div>
+//                     <label className="block text-sm font-medium">Category</label>
+//                     <input
+//                       name="category"
+//                       defaultValue={selectedMenuItem?.category || ""}
+//                       className="w-full border rounded px-3 py-2"
+//                       required
+//                     />
+//                   </div>
+//                   <div className="flex items-center">
+//                     <input
+//                       type="checkbox"
+//                       name="available"
+//                       defaultChecked={selectedMenuItem?.available || false}
+//                       className="mr-2"
+//                     />
+//                     <label>Available</label>
+//                   </div>
+//                   <div className="flex justify-end space-x-2">
+//                     <button
+//                       type="button"
+//                       onClick={() => {
+//                         setSelectedMenuItem(null);
+//                         setIsAddingMenuItem(false);
+//                       }}
+//                       className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+//                     >
+//                       Cancel
+//                     </button>
+//                     <button
+//                       type="submit"
+//                       className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+//                     >
+//                       Save
+//                     </button>
+//                   </div>
+//                 </form>
+//               </div>
+//             </div>
+//           )}
+//         </div>
+//       )}
+
+//       {/* Customers */}
+//       {activeTab === "customers" && (
+//         <div className="bg-white rounded-lg shadow p-6">
+//           <h2 className="text-xl font-semibold mb-4">Customers</h2>
+//           <p className="text-gray-600">Customer management will be implemented here.</p>
+//         </div>
+//       )}
+//     </div>
+//   );
+// }
+
+// // Reusable Stat Card
+// function StatCard({
+//   title,
+//   value,
+//   icon: Icon,
+//   color,
+// }: {
+//   title: string;
+//   value: string | number;
+//   icon: React.ElementType;
+//   color: string;
+// }) {
+//   return (
+//     <div className="bg-white rounded-lg shadow p-6 flex items-center">
+//       <Icon className={`w-10 h-10 mr-4 ${color}`} />
+//       <div>
+//         <h3 className="text-sm font-medium text-gray-500">{title}</h3>
+//         <p className="text-2xl font-bold">{value}</p>
+//       </div>
+//     </div>
+//   );
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 "use client";
