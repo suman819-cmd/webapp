@@ -1,9 +1,8 @@
-"use client";
 import { Leaf, Coffee, Heart, Mail, Phone, MapPin } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#3B200F] text-yellow-100 py-12 px-6">
+    <footer className="bg-[#3B200F] text-yellow-100 py-12 px-6 mt-12">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
         {/* Brand Section */}
         <div>
@@ -14,7 +13,6 @@ export default function Footer() {
           </div>
           <p className="mt-3 text-sm text-yellow-200">
             Where traditional Nepali chiya culture meets modern coffee artistry.
-            Every cup tells a story, every sip creates memories.
           </p>
           <p className="mt-3 flex items-center gap-2 text-sm text-yellow-300">
             <Heart className="text-yellow-400" size={16} />
@@ -74,24 +72,22 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Divider */}
       <div className="border-t border-yellow-900 my-8"></div>
 
       {/* Operating Hours */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
         <div>
           <h4 className="font-semibold">Operating Hours</h4>
-          <p className="mt-1"><span className="font-bold">Monday - Friday:</span> 7:00 AM - 9:00 PM</p>
+          <p className="mt-1"><span className="font-bold">Mon - Fri:</span> 7:00 AM - 9:00 PM</p>
         </div>
         <div>
-          <p className="mt-6 md:mt-0"><span className="font-bold">Saturday - Sunday:</span> 8:00 AM - 10:00 PM</p>
+          <p className="mt-6 md:mt-0"><span className="font-bold">Sat - Sun:</span> 8:00 AM - 10:00 PM</p>
         </div>
         <div>
           <p className="mt-6 md:mt-0"><span className="font-bold">Public Holidays:</span> 9:00 AM - 8:00 PM</p>
         </div>
       </div>
 
-      {/* Bottom */}
       <div className="border-t border-yellow-900 mt-8 pt-6 flex flex-col md:flex-row justify-between text-xs text-yellow-300">
         <p>© 2024 Chiya & Coffee. All rights reserved.</p>
         <div className="flex gap-4 mt-2 md:mt-0">
