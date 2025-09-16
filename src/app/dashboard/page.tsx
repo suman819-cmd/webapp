@@ -1518,9 +1518,9 @@
 
 
 
-
 "use client";
 import React, { useState, useEffect, JSX } from "react";
+import Image from "next/image";
 import { 
   BarChart3, 
   Users, 
@@ -1534,7 +1534,6 @@ import {
   Filter,
   Download,
   Plus,
-  Trash2,
   LogOut
 } from "lucide-react";
 
@@ -1608,7 +1607,6 @@ export default function OwnerDashboard(): JSX.Element {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [timeRange, setTimeRange] = useState<string>('today');
   const [statusFilter, setStatusFilter] = useState<string>('all');
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [activeTab, setActiveTab] = useState<string>('overview');
   const [showAddItemModal, setShowAddItemModal] = useState<boolean>(false);
   const [editingItem, setEditingItem] = useState<MenuItem | null>(null);
@@ -1627,7 +1625,6 @@ export default function OwnerDashboard(): JSX.Element {
   // Fetch orders and data (simulated)
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
       setTimeout(() => {
         const sampleOrders: Order[] = [
           {
@@ -1731,7 +1728,6 @@ export default function OwnerDashboard(): JSX.Element {
         setSalesData(sampleSalesData);
         setProductPerformance(sampleProductPerformance);
         setMenuItems(sampleMenuItems);
-        setIsLoading(false);
       }, 1000);
     };
     fetchData();
@@ -2282,7 +2278,13 @@ export default function OwnerDashboard(): JSX.Element {
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <div className="h-10 w-10 flex-shrink-0">
-                            <img className="h-10 w-10 rounded-full object-cover" src={item.image} alt={item.name} />
+                            <Image 
+                              className="h-10 w-10 rounded-full object-cover" 
+                              src={item.image} 
+                              alt={item.name}
+                              width={40}
+                              height={40}
+                            />
                           </div>
                           <div className="ml-4">
                             <div className="text-sm font-medium text-gray-900">{item.name}</div>

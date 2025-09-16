@@ -147,9 +147,6 @@ export default function OrderNow(): JSX.Element {
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [orderId, setOrderId] = useState<string>("");
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
-  const [paymentStatus, setPaymentStatus] = useState<
-    "success" | "failed" | ""
-  >("");
   const [paymentError, setPaymentError] = useState<string>("");
 
   // Filter items by category
@@ -255,9 +252,7 @@ export default function OrderNow(): JSX.Element {
   };
 
   // Simulate payment processing
-  const simulatePayment = async (
-    method: string
-  ): Promise<{ success: boolean; error?: string }> => {
+  const simulatePayment = async (): Promise<{ success: boolean; error?: string }> => {
     return new Promise((resolve) => {
       setTimeout(() => {
         const isSuccess = Math.random() > 0.2;
@@ -291,7 +286,6 @@ export default function OrderNow(): JSX.Element {
       setTimeout(() => {
         const newOrderId = generateOrderId();
         setOrderId(newOrderId);
-        setPaymentStatus("success");
         setCurrentStep(6);
         setIsProcessing(false);
       }, 1500);
@@ -323,20 +317,17 @@ export default function OrderNow(): JSX.Element {
   // Handle payment redirect simulation
   const handlePaymentRedirect = async () => {
     try {
-      const result = await simulatePayment(paymentMethod);
+      const result = await simulatePayment();
 
       if (result.success) {
         const newOrderId = generateOrderId();
         setOrderId(newOrderId);
-        setPaymentStatus("success");
         setCurrentStep(6);
       } else {
-        setPaymentStatus("failed");
         setPaymentError(result.error || "Payment failed");
         setCurrentStep(7);
       }
-    } catch (err) {
-      setPaymentStatus("failed");
+    } catch {
       setPaymentError("An unexpected error occurred");
       setCurrentStep(7);
     } finally {
@@ -346,14 +337,12 @@ export default function OrderNow(): JSX.Element {
 
   // Retry payment with same method
   const retryPayment = () => {
-    setPaymentStatus("");
     setPaymentError("");
     setCurrentStep(4);
   };
 
   // Try different payment method
   const tryDifferentMethod = () => {
-    setPaymentStatus("");
     setPaymentError("");
     setCurrentStep(4);
   };
@@ -382,7 +371,6 @@ export default function OrderNow(): JSX.Element {
       phoneNumber: "",
       deliveryAddress: "",
     });
-    setPaymentStatus("");
     setPaymentError("");
     setOrderId("");
   };
@@ -1337,7 +1325,7 @@ export default function OrderNow(): JSX.Element {
                         <>
                           <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 极狐 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                           </svg>
                           Processing...
                         </>
